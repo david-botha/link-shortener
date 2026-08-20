@@ -1,3 +1,17 @@
-@LinkShortener_HostAddress = http://localhost:5092
+@LinkShortener_HostAddress = https://localhost:7038
 
-###
+### Create a link
+POST {{LinkShortener_HostAddress}}/api/links
+Content-Type: application/json
+
+{
+  "originalUrl": "https://learn.microsoft.com/en-us/aspnet/core"
+}
+
+### Fail example (Error: 400)
+POST {{LinkShortener_HostAddress}}/api/links
+Content-Type: application/json
+
+{
+  "originalUrl": "not-a-url"
+}
