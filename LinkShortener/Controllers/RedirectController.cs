@@ -1,20 +1,16 @@
-﻿using LinkShortener.Data;
+﻿using LinkShortener.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LinkShortener.Controllers
 {
     [ApiController]
-    public class RedirectController(AppDbContext db) : ControllerBase
+    public class RedirectController(ILinkService linkService) : ControllerBase
     {
         // [[ ]] are escaped [ ]. Actual pattern: ^[a-zA-Z0-9_-]+$
         [HttpGet("{slug:regex(^[[a-zA-Z0-9_-]]+$)}")]
         public async Task<IActionResult> RedirectToOriginal(string slug)
         {
-            string? originalUrl = await db.Links
-                .Where(link => link.Slug == slug)
-                .Select(link => link.OriginalUrl)
-                .FirstOrDefaultAsync();
+            string? originalUrl = await linkService.GetOriginalUrlAsync(slug);
 
             if (originalUrl is null)
             {

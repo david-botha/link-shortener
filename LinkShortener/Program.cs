@@ -1,5 +1,6 @@
 using LinkShortener.Data;
 using Microsoft.EntityFrameworkCore;
+using LinkShortener.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 string dbConnectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'Default' not found.");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(dbConnectionString));
+
+builder.Services.AddScoped<ILinkService, LinkService>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
