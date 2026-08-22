@@ -15,3 +15,9 @@ Content-Type: application/json
 {
   "originalUrl": "not-a-url"
 }
+
+### Follow a slug (replace the slug with a real one from the 'Create a link' above)
+GET {{LinkShortener_HostAddress}}/PtAy4BA
+
+### Unknown slug (Error: 404)
+GET {{LinkShortener_HostAddress}}/nope123
