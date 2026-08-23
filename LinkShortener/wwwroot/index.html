@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkShortener</title>
+    <meta name="description" content="A small URL shortener built with ASP.NET Core and EF Core." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b3441d' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>" />
+    <link rel="stylesheet" href="site.css" />
+    <script src="site.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>LinkShortener</h1>
+        <p class="lede">Paste a long URL,<br />get a short one.</p>
+
+        <form id="form" novalidate>
+            <input id="url" type="url" required autocomplete="off" spellcheck="false"
+                   aria-describedby="hint"
+                   placeholder="example.com/some/very/long/path" />
+            <button id="submit" type="submit">Shorten</button>
+        </form>
+
+        <p id="hint" class="hint" role="alert" hidden></p>
+
+        <div id="result" role="status" aria-live="polite">
+            <div class="row">
+                <a id="short" href="#" target="_blank" rel="noopener"></a>
+                <button class="copy" id="copy" type="button">Copy</button>
+            </div>
+        </div>
+
+        <footer>
+            ASP.NET Core · EF Core ·
+            <a href="https://github.com/david-botha/link-shortener" target="_blank" rel="noopener">Source on GitHub&nbsp;↗</a>
+        </footer>
+    </main>
+</body>
+</html>
