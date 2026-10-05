@@ -24,7 +24,7 @@ namespace LinkShortener.Tests.Services
             _db = new AppDbContext(options);
             _db.Database.EnsureCreated();
 
-            _service = new LinkService(_db);
+            _service = new LinkService(_db, new RandomSlugGenerator());
         }
 
         public void Dispose()

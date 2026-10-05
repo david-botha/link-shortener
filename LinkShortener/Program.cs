@@ -21,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(dbConne
 
 builder.Services.AddScoped<ILinkService, LinkService>();
 
+builder.Services.AddSingleton<ISlugGenerator, RandomSlugGenerator>();
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 

@@ -1,15 +1,11 @@
 ﻿using LinkShortener.Data;
-using LinkShortener.Dtos;
 using LinkShortener.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace LinkShortener.Services
 {
-    public class LinkService(AppDbContext db) : ILinkService
+    public class LinkService(AppDbContext db, ISlugGenerator slugGenerator) : ILinkService
     {
-        private const string SlugAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        private const int SlugLength = 7;
         private const int MaxAttempts = 5;
 
         public async Task<Link?> CreateAsync(string originalUrl)
@@ -18,7 +14,7 @@ namespace LinkShortener.Services
             {
                 Link link = new()
                 {
-                    Slug = GenerateSlug(),
+                    Slug = slugGenerator.Generate(),
                     OriginalUrl = originalUrl,
                     CreatedAt = DateTime.UtcNow
                 };
@@ -47,18 +43,6 @@ namespace LinkShortener.Services
                 .Where(link => link.Slug == slug)
                 .Select(link => link.OriginalUrl)
                 .FirstOrDefaultAsync();
-        }
-
-        private static string GenerateSlug()
-        {
-            char[] chars = new char[SlugLength];
-
-            for (int i = 0; i < SlugLength; i++)
-            {
-                chars[i] = SlugAlphabet[RandomNumberGenerator.GetInt32(SlugAlphabet.Length)];
-            }
-
-            return new string(chars);
         }
     }
 }
