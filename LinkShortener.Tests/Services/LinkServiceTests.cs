@@ -44,5 +44,22 @@ namespace LinkShortener.Tests.Services
 
             Assert.Equal(originalUrl, foundUrl);
         }
+
+        [Fact]
+        public async Task GetOriginalUrlAsync_ReturnsNull_ForUnknownSlug()
+        {
+            string? foundUrl = await _service.GetOriginalUrlAsync("missing");
+
+            Assert.Null(foundUrl);
+        }
+
+        [Fact]
+        public async Task CreateAsync_GeneratesSevenCharacterAlphanumericSlug()
+        {
+            Link? created = await _service.CreateAsync("https://example.com");
+
+            Assert.NotNull(created);
+            Assert.Matches("^[a-zA-Z0-9]{7}$", created.Slug);
+        }
     }
 }
